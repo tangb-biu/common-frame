@@ -1,0 +1,118 @@
+<div class="row">
+    <div class="col-lg-12">
+        <form class="form-horizontal" novalidate>
+            <div class="form-group clear-mrgb">
+                <label class="control-label col-lg-2">账号<span class="sign-must">*</span></label>
+                <div class="col-lg-9">
+                    <input class="form-control" type="text" ng-model="userList.init.modalForm.account" ng-change="validateForm('account','user')" placeholder="" ng-readonly="userList.init.actionType === 'update'">
+                    <div class="validate-container">
+                        <span ng-if="validate.user.account.dirty && validate.user.account.error.required">
+                            账号不能为空
+                        </span>
+                        <span ng-if="validate.user.account.dirty && validate.user.account.error.format">
+                            账号为不超过10个字符的字母
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <i class="valid-error" ng-if=" validate.user.account.dirty && validate.user.account.invalid"></i>
+                    <i class="valid-success" ng-if=" validate.user.account.dirty && validate.user.account.valid"></i>
+                </div>
+            </div>
+            <div class="form-group clear-mrgb">
+                <label class="control-label col-lg-2">用户姓名<span class="sign-must">*</span></label>
+                <div class="col-lg-9">
+                    <input class="form-control" type="text" ng-model="userList.init.modalForm.userName" ng-change="validateForm('userName','user')" placeholder="">
+                    <div class="validate-container">
+                        <span ng-if="validate.user.userName.dirty && validate.user.userName.error.required">
+                            用户姓名不能为空
+                        </span>
+                        <span ng-if="validate.user.userName.dirty && validate.user.userName.error.format">
+                            用户姓名不超过10个字符
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <i class="valid-error" ng-if=" validate.user.userName.dirty && validate.user.userName.invalid"></i>
+                    <i class="valid-success" ng-if=" validate.user.userName.dirty && validate.user.userName.valid"></i>
+                </div>
+            </div>
+            <div class="form-group clear-mrgb">
+                <label class="control-label col-lg-2">联系电话</label>
+                <div class="col-lg-9">
+                    <input class="form-control" type="text" ng-model="userList.init.modalForm.phone" ng-change="validateForm('phone','user')" placeholder="">
+                    <div class="validate-container">
+                        <span ng-if="validate.user.phone.dirty && validate.user.phone.error.format">
+                            格式有误，请填写手机号或带区号的电话号码
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <i class="valid-error" ng-if=" validate.user.phone.dirty && validate.user.phone.invalid"></i>
+                    <i class="valid-success" ng-if=" validate.user.phone.dirty && validate.user.phone.valid"></i>
+                </div>
+            </div>
+            <div class="form-group clear-mrgb" ng-if="userList.init.actionType === 'add'">
+                <label class="control-label col-lg-2">密码<span class="sign-must">*</span></label>
+                <div class="col-lg-9">
+                    <input class="form-control" type="password" autocomplete="false" ng-model="userList.init.modalForm.passWord" ng-change="validateForm('passWord','user')" placeholder="">
+                    <div class="validate-container">
+                        <span ng-if="validate.user.passWord.dirty && validate.user.passWord.error.required">
+                            密码不能为空
+                        </span>
+                        <span ng-if="validate.user.passWord.dirty && validate.user.passWord.error.format">
+                            密码为 8-20 位字母与数字的组合
+                        </span>
+                        <span ng-if="validate.user.passWord.dirty && validate.user.passWord.error.same">
+                            密码不能和账号相同
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <i class="valid-error" ng-if=" validate.user.passWord.dirty && validate.user.passWord.invalid"></i>
+                    <i class="valid-success" ng-if=" validate.user.passWord.dirty && validate.user.passWord.valid"></i>
+                </div>
+            </div>
+            <div class="form-group clear-mrgb" ng-if="userList.init.actionType === 'add'">
+                <label class="control-label col-lg-2">确认密码<span class="sign-must">*</span></label>
+                <div class="col-lg-9">
+                    <input class="form-control" type="password" autocomplete="false" ng-model="userList.init.modalForm.repeatPassWord" ng-change="validateForm('repeatPassWord','user')" placeholder="">
+                    <div class="validate-container">
+                        <span ng-if="validate.user.repeatPassWord.dirty && validate.user.repeatPassWord.error.required">
+                            请输入确认密码
+                        </span>
+                        <span ng-if="validate.user.repeatPassWord.dirty && validate.user.repeatPassWord.error.format">
+                            密码为 8-20 位字母与数字的组合
+                        </span>
+                        <span ng-if="validate.user.repeatPassWord.dirty && validate.user.repeatPassWord.error.same">
+                            两次密码不一致
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <i class="valid-error" ng-if=" validate.user.repeatPassWord.dirty && validate.user.repeatPassWord.invalid"></i>
+                    <i class="valid-success" ng-if=" validate.user.repeatPassWord.dirty && validate.user.repeatPassWord.valid"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">访问权限</label>
+                <div class="col-lg-9">
+                    <fieldset>
+                        <ul class="list-group modal-select select-role">
+                            <li class="list-item col-lg-12 pdl0 pdr0 checkbox" ng-show="userList.init.viewAuthOptions && userList.init.viewAuthOptions.length > 0">
+                              <label title="全选/全不选">
+                                <input type="checkbox" value="0" ng-checked="userList.init.selected.indexOf(0)>-1" ng-click="updateChecked($event,0)">全选/全不选
+                              </label>
+                            </li>
+                            <li class="list-item col-lg-4 pdl0 pdr0 checkbox" ng-repeat="va in userList.init.viewAuthOptions">
+                              <label title="{{va.name}}">
+                                <input type="checkbox" ng-value="va.id" title="{{va.name}}" ng-checked="userList.init.selected.indexOf(va.id)>-1" ng-click="updateChecked($event,va.id)">{{va.name}}
+                              </label>
+                            </li>
+                        </ul>
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
