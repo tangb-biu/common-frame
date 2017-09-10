@@ -52,6 +52,20 @@ angular.module('myappApp')
   		var nav = new CustNavigator(header);
   		//var role = nav.getChild('main.role');
   		
-      $scope.nav = nav;
+      $scope.navgator_0 = nav.getHeader();
+      (function genneratorRouter(router, k){
+        for(var i in router) {
+            if(router[i]['key'] === 0) {
+              $scope['navgator_'+ k] =  router[i];
+              if(router[i]['childrenState']) {
+                  genneratorRouter(router[i], k+1);
+              }
+            }
+        }
+
+      }($scope.navgator_0, 1))
+
+
+      console.log($scope);
 
   	}]);
