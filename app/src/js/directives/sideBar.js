@@ -16,7 +16,9 @@
 		restrict: "EA",
 		templateUrl: '../../../views/public/sideBar.html',
 		replace: true,
-		scope: {},
-		controller: 'SideBarCtrl'
+		scope: {
+			nextData: '='
+		},
+		//controller: 'SideBarCtrl'
 	}
 })

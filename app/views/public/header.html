@@ -19,9 +19,12 @@
             </div>
             <!-- 导航主体 s -->
             <div id="J_fixedNavbar" class="navbar-collapse collapse">
+                <!--
                 <ul class="nav navbar-nav navbar-left">
-                    <li ui-sref-active="active" ng-repeat="header in cache.firstHeaderHrefs track by header.key"><a ui-sref="{{header.state}}" ng-click="setSecondHrefs($index)">{{header.label}}</a></li>
+                    <li ui-sref-active="active" ng-repeat="header in nav.getHeader()"><a ui-sref="{{header.state}}" ng-click="nextRouters = header">{{header.label}}</a></li>
                 </ul>
+                -->
+                <menu-directive next-data="header"></menu-directive>
                 <!-- 右侧功能项 s -->
                 <ul class="nav navbar-nav navbar-right hidden-xs">
                     <li><a class="btn" style="color:#b2b2b2;cursor:text;">

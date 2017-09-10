@@ -16,7 +16,6 @@
 		restrict: "EA",
 		templateUrl: '../../../views/public/header.html',
 		replace: true,
-		scope: {},
 		controller: 'HeaderCtrl'
 	}
 })

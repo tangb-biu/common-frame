@@ -64,6 +64,9 @@ angular.module('myappApp')
             });
             $scope.cache.firstHeaderHrefs = _hrefs_;
         }
+
+        
+        
 	   	$scope.initHeader = function () {
 	    	$scope.errorMsg = '';
             $scope.selfValid();

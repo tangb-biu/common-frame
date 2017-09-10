@@ -95,15 +95,87 @@ angular
 	        return _routeArr_;
         }
 
+        function isArray(arr) {
+        	return Object.prototype.toString.call(arr) === "[object Array]";
+        }
+
+        function isBoolean(a) {
+        	return Object.prototype.toString.call(a) === "[object Boolean]";
+        }
+        function flatten(input, shallow, strict, startIndex) {
+		    var output = [], idx = 0;
+		    for (var i = startIndex || 0, length = input && input.length; i < length; i++) {
+		      	var value = input[i];
+		      	if (isArray(value)) {
+		        //flatten current level of array or arguments object
+			        if (!shallow) value = flatten(value, shallow, strict);
+				    var j = 0, len = value.length;
+				    output.length += len;
+				    while (j < len) {
+				        output[idx++] = value[j++];
+				    }
+			    } else if (!strict) {
+			    	output[idx++] = value;
+		      	}	
+		    }
+		    return output;
+		}
+		function indexOf(array, item, isSorted) {
+		    var i = 0, length = array && array.length;
+		    if (typeof isSorted == 'number') {
+		    	i = isSorted < 0 ? Math.max(0, length + isSorted) : isSorted;
+		    } else if (isSorted && length) {
+		      	i = _.sortedIndex(array, item);
+		      	return array[i] === item ? i : -1;
+		    }
+		    if (item !== item) {
+		      	return _.findIndex(slice.call(array, i), _.isNaN);
+		    }
+		    for (; i < length; i++) if (array[i] === item) return i;
+		    return -1;
+		};
+		function contains(obj, target, fromIndex) {
+		    if (!isArray(obj)) throw new Error('paramter is not array type');
+		    return indexOf(obj, target, typeof fromIndex == 'number' && fromIndex) >= 0;
+		}
+		function uniq(array, isSorted, iteratee, context) {
+		    if (array == null) return [];
+		    if (isBoolean(isSorted)) {
+		      	context = iteratee;
+		      	iteratee = isSorted;
+		      	isSorted = false;
+		    }
+		    if (iteratee != null) iteratee = cb(iteratee, context);
+		    var result = [];
+		    var seen = [];
+		    for (var i = 0, length = array.length; i < length; i++) {
+		      	var value = array[i],
+		        computed = iteratee ? iteratee(value, i, array) : value;
+		      	if (isSorted) {
+		        	if (!i || seen !== computed) result.push(value);
+		        	seen = computed;
+		      	} else if (iteratee) {
+		        	if (!contains(seen, computed)) {
+		          		seen.push(computed);
+		          		result.push(value);
+		        	}
+		      	} else if (!contains(result, value)) {
+		        	result.push(value);
+		      	}
+		    }
+		    return result;
+		}
         function _$handlerHeader(states, prefix) {
         	var _header_ = {};
+        	var _children_state_ = [];
         	angular.forEach(states, function(route, i) {
 	        	if(route.multiple) {
 	        		var arr = _$handlerHeader(route.children);
 	        		arr['label'] = route.label;
 	        		arr['key'] = i;
 	        		_header_[route.folder] = arr;
-
+	        		_children_state_.push(arr.childrenState);
+	        		_children_state_ = flatten(_children_state_);
 	        	} else {
 	        		if(!route.state) throw new Error(' Missing Parameters *state*!');
 	        		var urls = route.state.split('.');
@@ -114,14 +186,23 @@ angular
 	        			key: i // 对排序有特殊要求的地方
 	        		}
 	        		_header_[route.state] = obj;
+	        		_children_state_.push(obj.state);
 	        	}
 
 	        })
-
+        	//_header_.childrenState = flatten(_children_state_);
+        	Object.defineProperty(_header_, "childrenState", {
+			    value: flatten(_children_state_),
+			    enumerable: false
+			});
 	        return _header_;
         }
         // 配置菜单栏
         var header = _$handlerHeader(states);
+        var len = uniq(header.childrenState).length;
+        if(header.childrenState.length !== len) {
+        	throw new Error("Duplicate state is not allowed!");
+        }
         configHeaderProvider.setHeader(header);
 
         // 默认路由

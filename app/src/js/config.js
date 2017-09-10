@@ -73,10 +73,6 @@ angular
 		$get: function() {
 			return [
 				{
-					state: 'home',
-					label: '首页'
-				},
-				{
 					multiple: true,
 					label: '用户管理',
 					folder: 'user',
@@ -88,10 +84,29 @@ angular
 						{
 							state: 'role',
 							label: '角色管理'
+						},
+						{
+							multiple: true,
+							label: 'quanxian管理',
+							folder: 'privilige',
+							children: [
+								{
+									state: 'privi1',
+									label: 'hah管理'
+								},
+								{
+									state: 'privi2',
+									label: 'hah1管理'
+								}
+							]
 						}
 
 					]
-				}
+				},
+				{
+					state: 'home',
+					label: '首页'
+				},
 			];
 		}
 	})
