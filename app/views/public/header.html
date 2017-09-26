@@ -2,7 +2,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top navbar-self" ng-init="initHeader()">
         <div class="container-fluid">
             <!-- 左上产品LOGO -->
-            <a class="navbar-brand visible-xs-inline-block" ui-sref="main.home" style="color:#fff">数据支撑平台</a>
+            <a class="navbar-brand visible-xs-inline-block" ui-sref="main.home" style="color:#fff">美创科技xxx平台</a>
             <a class="navbar-brand navbar-logo pdt12" ui-sref="main.home">
                 <div class="logo-icon">
                     <img class="hidden-xs" src="../../src/images/logo.png" width="100%" alt="LOGO">
@@ -19,24 +19,32 @@
             </div>
             <!-- 导航主体 s -->
             <div id="J_fixedNavbar" class="navbar-collapse collapse">
-                <!--
+
                 <ul class="nav navbar-nav navbar-left">
-                    <li ui-sref-active="active" ng-repeat="header in nav.getHeader()"><a ui-sref="{{header.state}}" ng-click="nextRouters = header">{{header.label}}</a></li>
+                    <li ng-click="getChildren(item.state, null, 1)" ng-repeat="item in nav.getChildren() track by item.key">
+                        <a>{{item.label}}</a>
+                    </li>
                 </ul>
-                -->
-                <menu-directive routers="navgator_0"></menu-directive>
+
+                <!-- <menu-directive routers="navgator_0"></menu-directive> -->
                 <!-- 右侧功能项 s -->
                 <ul class="nav navbar-nav navbar-right hidden-xs">
-                    <li><a class="btn" style="color:#b2b2b2;cursor:text;">
-                            <i class="icon-header icon-header-user"></i>
-                                欢迎你，<span class="user-name">{{userList.init.defaultUser.username}}</span>
-                    </a></li>
-                    <li><a role="button" class="btn btn-link" ng-click="clickChangePwd()">
-                        <i class="icon-header icon-header-password"></i>修改密码
-                    </a></li>
-                    <li><a role="button" class="btn btn-link" ng-click="clickLogout()">
-                        <i class="icon-header icon-header-logout"></i>退出
-                    </a></li>
+                    <li>
+                        <a class="btn" style="color:#b2b2b2;cursor:text;">
+                            <i class="icon-header icon-header-user"></i> 欢迎你，
+                            <span class="user-name">管理员</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a role="button" class="btn btn-link" ng-click="clickChangePwd()">
+                            <i class="icon-header icon-header-password"></i>修改密码
+                        </a>
+                    </li>
+                    <li>
+                        <a role="button" class="btn btn-link" ng-click="clickLogout()">
+                            <i class="icon-header icon-header-logout"></i>退出
+                        </a>
+                    </li>
                 </ul>
                 <!-- 右侧功能项 e -->
             </div>

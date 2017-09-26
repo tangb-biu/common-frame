@@ -1,15 +1,12 @@
 <div class="sidebar">
-    <!--
     <ul style="padding:0px;" ng-init="init()">
-        <li class="sidebar-item" ng-repeat="item in cache.secondHeaderHrefs track by item.key">
-            <a class="sidebar-link">
+        <li class="sidebar-item" ng-repeat="item in headerHrefs track by item.key">
+            <a class="sidebar-link" ng-click="getChildren(item.state)">
                 <div class="sidebar-icons"></div>
-                <div class="sidebar-name" ui-sref="{{item.state}}">{{item.label}}</div>       
-            </a>
-        </li>     
+                <div class="sidebar-name">{{item.label}}</div>
             </a>
         </li>
+        </a>
+        </li>
     </ul>
-    -->
-    <menu-directive routers="navgator_1"></menu-directive>
 </div>

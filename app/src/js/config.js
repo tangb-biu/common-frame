@@ -60,53 +60,35 @@
 */
 
 angular
-  	.module('myappApp.services', [])
-  	.provider('configHeader', {
-		setHeader: function(header) {
-  			this.header = header;
-  		},
-  		$get: function() {
-  			return this.header;
-  		}
-	})
-  	.provider('configModules', {
-		$get: function() {
-			return [
-				{
-					multiple: true,
-					label: '用户管理',
-					folder: 'user',
-					children: [
-						{
-							state: 'user',
-							label: '用户管理'
-						},
-						{
-							state: 'role',
-							label: '角色管理'
-						},
-						{
-							multiple: true,
-							label: 'quanxian管理',
-							folder: 'privilige',
-							children: [
-								{
-									state: 'privi1',
-									label: 'hah管理'
-								},
-								{
-									state: 'privi2',
-									label: 'hah1管理'
-								}
-							]
-						}
-
-					]
-				},
-				{
-					state: 'home',
-					label: '首页'
-				},
-			];
-		}
-	})
+    .module('myappApp.services', [])
+    .provider('configHeader', {
+        setHeader: function(header) {
+            this.header = header;
+        },
+        $get: function() {
+            return this.header;
+        }
+    })
+    .provider('configModules', {
+        $get: function() {
+            return [{
+                    state: 'home',
+                    label: '首页'
+                },
+                {
+                    multiple: true,
+                    label: '用户管理',
+                    folder: 'user',
+                    children: [{
+                            state: 'user',
+                            label: '用户管理'
+                        },
+                        {
+                            state: 'role',
+                            label: '角色管理'
+                        }
+                    ]
+                }
+            ];
+        }
+    })
